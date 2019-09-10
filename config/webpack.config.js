@@ -478,20 +478,42 @@ module.exports = function(webpackEnv) {
             // This loader doesn't use a "test" so it will catch all modules
             // that fall through the other loaders.
             {
-              loader: require.resolve('file-loader'),
-              // Exclude `js` files to keep "css" loader working as it injects
-              // its runtime that would otherwise be processed through "file" loader.
-              // Also exclude `html` and `json` extensions so they get processed
-              // by webpacks internal loaders.
-              exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-              options: {
-                name: 'static/media/[name].[hash:8].[ext]',
-              },
-            },
+                loader: require.resolve('file-loader'),
+                // Exclude `js` files to keep "css" loader working as it injects
+                // its runtime that would otherwise be processed through "file" loader.
+                // Also exclude `html` and `json` extensions so they get processed
+                // by webpacks internal loaders.
+                exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+                options: {
+                    name: 'static/media/[name].[hash:8].[ext]',
+                },
+            }
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],
         },
+        {
+            test: /\.scss$/,
+            use: [
+                {
+                loader:'style-loader'
+                }, {
+                loader: 'css-loader'
+                }, {
+                loader: 'sass-loader'
+                }, 
+                {
+                    loader: 'sass-resources-loader',
+                    options: {
+                        resources: [
+                            // resolve方法第二个参数为scss配置文件地址，如果有多个，就进行依次添加即可
+                            path.resolve(__dirname, './../src/assets/css/common/common_color.scss'),
+                            path.resolve(__dirname, './../src/assets/css/common/mixin.scss'),
+                        ],
+                    }
+                }
+            ]
+        }
       ],
     },
     plugins: [
