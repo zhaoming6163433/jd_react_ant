@@ -5,9 +5,9 @@ export default async (apiurl = '', params = {}, type = 'GET', method = '', outap
     type = type.toUpperCase();
     function handleres(res,resolve,reject) {
         console.log(res)
-        if (res.data&&res.data.code == 1000) {
+        if (res.data&&res.data.code === 1000) {
             resolve(res.data.result);
-        } else if(res.data&&res.data.code == 6001||res.data&&res.data.code == 6002)
+        } else if((res.data&&res.data.code) === 6001||(res.data&&res.data.code) === 6002)
         {
             // window.location.href = appConfigs.urlWebHttp+"/?pageName=login/#/login";
         }else{
@@ -15,7 +15,7 @@ export default async (apiurl = '', params = {}, type = 'GET', method = '', outap
             reject(res)
         }
     }
-    if (method == 'ajax') {
+    if (method === 'ajax') {
         return new Promise((resolve, reject) => {
             $.ajax({
                 url: apiurl,
@@ -24,10 +24,10 @@ export default async (apiurl = '', params = {}, type = 'GET', method = '', outap
                 contentType: false,
                 processData: false,
                 success: function (res) {
-                    if (res.code == 0) {
+                    if (res.code === 0) {
                         resolve(res)
                     } else
-                    if (res.code == "2") { //未登录直接跳转
+                    if (res.code === "2") { //未登录直接跳转
                         reject(res);
                         //window.location.href = res.result+"?ReturnUrl="+appConfigs.urlWebHttp+"/mdsexternal";
                     } else {
@@ -44,7 +44,7 @@ export default async (apiurl = '', params = {}, type = 'GET', method = '', outap
         });
     } else {
         return new Promise((resolve, reject) => {
-            if (type == "GET") {
+            if (type === "GET") {
                 if(outapi){
                     $axios.get(apiurl+params).then((res)=>{
                         resolve(res.data);
@@ -62,7 +62,7 @@ export default async (apiurl = '', params = {}, type = 'GET', method = '', outap
                     })
                 }
             }
-            if (type == "POST") {
+            if (type === "POST") {
                 $axios.post(apiurl, params)
                     .then(function (res) {
                         handleres(res,resolve,reject);

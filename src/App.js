@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router-dom';
-import { Button,LocaleProvider, Layout } from 'antd';
+import { Layout } from 'antd';
 import Routes from './routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import { post_base_getids } from './services/api';
 import './App.scss';
-
 
 const { Header, Sider, Content } = Layout;
 class App extends Component {
@@ -16,6 +15,7 @@ class App extends Component {
     async base_getids(){
       try{
           let res = await post_base_getids("");
+          console.log(res)
       }catch(e){
 
       }
