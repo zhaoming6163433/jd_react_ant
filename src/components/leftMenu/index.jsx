@@ -3,7 +3,7 @@ import { Menu, Icon, Button } from 'antd';
 
 const { SubMenu } = Menu;
 
-class leftMenu extends React.Component {
+class leftMenu extends Component {
   state = {
     collapsed: false,
   };

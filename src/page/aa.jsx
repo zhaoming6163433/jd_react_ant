@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,LocaleProvider, Layout } from 'antd';
+import { Button } from 'antd';
 
 class aa extends Component {
     render() {
