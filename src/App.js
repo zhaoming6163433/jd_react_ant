@@ -4,7 +4,8 @@ import { Button,LocaleProvider, Layout } from 'antd';
 import Routes from './routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import { post_base_getids } from './services/api';
-import './App.css';
+import './App.scss';
+
 
 const { Header, Sider, Content } = Layout;
 class App extends Component {
