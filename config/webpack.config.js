@@ -491,28 +491,6 @@ console.log(isEnvDevelopment)
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],
-        },
-        {
-            test: /\.scss$/,
-            use: [
-                {
-                loader:'style-loader'
-                }, {
-                loader: 'css-loader'
-                }, {
-                loader: 'sass-loader'
-                }, 
-                {
-                    loader: 'sass-resources-loader',
-                    options: {
-                        resources: [
-                            // resolve方法第二个参数为scss配置文件地址，如果有多个，就进行依次添加即可
-                            path.resolve(__dirname, './../src/assets/css/common/common_color.scss'),
-                            path.resolve(__dirname, './../src/assets/css/common/mixin.scss'),
-                        ],
-                    }
-                }
-            ]
         }
       ],
     },

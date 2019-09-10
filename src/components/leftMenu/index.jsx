@@ -4,19 +4,18 @@ import { Menu, Icon, Button } from 'antd';
 const { SubMenu } = Menu;
 
 class leftMenu extends Component {
-  state = {
-    collapsed: false,
-  };
+    state = {
+        collapsed: false,
+    };
 
-  toggleCollapsed = () => {
+    toggleCollapsed = () => {
     this.setState({
-      collapsed: !this.state.collapsed,
+        collapsed: !this.state.collapsed,
     });
-  };
+    };
 
   render() {
-    return (
-      <div style={{ width: 256 }}>
+    return (<div style={{ width: 256 }}>
         <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
           <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
         </Button>
