@@ -3,14 +3,31 @@ import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router
 import { Layout } from 'antd';
 import Routes from './routes/index';
 import LeftMenu from '../src/components/leftMenu';
+import {connect} from 'react-redux';
+import { dispatch, getState } from '@rematch/core';
 import { post_base_getids } from './services/api';
 import './App.scss';
 
 const { Header, Sider, Content } = Layout;
+
+const mapState = state => ({
+    count: state.count
+})
+
+const mapDispatch = (dispatch) => ({
+  countDispatch: dispatch.count
+})
+
 class App extends Component {
     componentDidMount () {
       this.base_getids('')
     }
+    handleClick = () => {
+      this.props.countDispatch.increment(10)
+    };
+    handleClick2 = () => {
+      this.props.countDispatch.incrementAsync(20)
+    };
     //创建新建id
     async base_getids(){
       try{
@@ -25,9 +42,6 @@ class App extends Component {
         return item.exact ? <Route key={index} exact path={item.path} component={item.component} /> : <Route key={index} path={item.path} component={item.component} />;
       });
       return (
-        // <div className="App">
-        //   <Button type="primary">Button</Button>
-        // </div>
         <Router>
           <HashRouter>
             <div className="App">
@@ -45,6 +59,11 @@ class App extends Component {
                   <Content style={{ background: '#fff', padding: 15, marginLeft: 10, marginRight: 10, minHeight: 415, marginTop: 30 }}>
                     3454页565
                     <Switch>{routers}</Switch>
+                    <div>
+                      The count is {this.props.count}
+                      <button onClick={this.handleClick}>increment</button>
+                      <button onClick={this.handleClick2}>incrementAsync</button>
+                    </div>
                   </Content>
                 </Layout>
               </Layout>
@@ -55,4 +74,5 @@ class App extends Component {
     }
   }
 
-export default App;
+// export default App;
+export default connect(mapState,mapDispatch)(App);
