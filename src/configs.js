@@ -15,7 +15,6 @@ let pagename = {
 }
 //http://172.25.45.68:8082/assets-manage
 console.log(process.env.NODE_ENV)
-console.log('=========')
 switch (process.env.NODE_ENV) {
     case 'development':
         urlWebHttp = 'http://172.25.45.68:8082/assets-manage';
