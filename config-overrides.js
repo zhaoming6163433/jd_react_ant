@@ -1,4 +1,6 @@
 const { override, fixBabelImports, addLessLoader, addWebpackAlias } = require('customize-cra');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const productionGzipExtensions = ['js', 'css']
 const path = require('path')
 module.exports = override(
     //按需加载antd的组件
@@ -13,7 +15,9 @@ module.exports = override(
         modifyVars: { '@primary-color': '#1DA57A' },
     }),
     //设置绝对路径
-    addWebpackAlias({        
+    addWebpackAlias({
+        ["assets"]: path.resolve(__dirname, "src/assets"),
+        ["mock"]: path.resolve(__dirname, "src/mock"), 
         ["services"]: path.resolve(__dirname, "src/services"),        
         ["components"]: path.resolve(__dirname, "src/components")   
     }),
@@ -27,6 +31,23 @@ module.exports = override(
                 ]
             }
         })
+        if (process.env.NODE_ENV === 'production') {
+            //生产去掉console.log
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+            // 关掉 sourceMap
+            config.devtool = false;
+            // 生成gzip
+            config.plugins.push(
+                new CompressionWebpackPlugin({
+                    filename: '[path].gz[query]',
+                    algorithm: 'gzip',
+                    test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+                    threshold: 10240,
+                    minRatio: 0.8
+                })
+            );
+        }
+        
         return config
     }
 );
