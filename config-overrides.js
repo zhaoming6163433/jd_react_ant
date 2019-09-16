@@ -1,4 +1,4 @@
-const { override, fixBabelImports, addLessLoader, addWebpackAlias } = require('customize-cra');
+const { override, fixBabelImports, addLessLoader, addWebpackAlias,useEslintRc } = require('customize-cra');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css']
 const path = require('path')
@@ -20,8 +20,13 @@ module.exports = override(
         ["mock"]: path.resolve(__dirname, "src/mock"), 
         ["services"]: path.resolve(__dirname, "src/services"),        
         ["components"]: path.resolve(__dirname, "src/components"),
+<<<<<<< HEAD
         ["@"]: path.resolve(__dirname, "src")
+=======
+        ["utils"]: path.resolve(__dirname, "src/utils")
+>>>>>>> xiongcui
     }),
+    useEslintRc(),
     (config) => {
         config.module.rules[2].oneOf[5].use.push({
             loader: 'sass-resources-loader',

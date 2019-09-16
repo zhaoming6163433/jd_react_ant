@@ -4,7 +4,6 @@ import { Layout } from 'antd';
 import Routes from './routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import {connect} from 'react-redux';
-import { dispatch, getState } from '@rematch/core';
 import { post_base_getids } from './services/api';
 import './App.scss';
 
@@ -20,7 +19,9 @@ const mapDispatch = (dispatch) => ({
 
 class App extends Component {
     componentDidMount () {
-      this.base_getids('')
+      this.base_getids('');
+      // console.log(getState)
+
     }
     handleClick = () => {
       this.props.countDispatch.increment(10)
