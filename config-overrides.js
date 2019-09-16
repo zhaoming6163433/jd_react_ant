@@ -20,11 +20,8 @@ module.exports = override(
         ["mock"]: path.resolve(__dirname, "src/mock"), 
         ["services"]: path.resolve(__dirname, "src/services"),        
         ["components"]: path.resolve(__dirname, "src/components"),
-<<<<<<< HEAD
-        ["@"]: path.resolve(__dirname, "src")
-=======
+        ["@"]: path.resolve(__dirname, "src"),
         ["utils"]: path.resolve(__dirname, "src/utils")
->>>>>>> xiongcui
     }),
     useEslintRc(),
     (config) => {

@@ -59,10 +59,6 @@ class aa extends Component {
   }
     render() {
       return (
-<<<<<<< HEAD
-        <div>
-          <Button type="primary">Button</Button>
-=======
         <div className="App">
           <Button type="primary" onClick={this.changeState}>Button</Button>
           <Linedata chartid={this.state.chartid} title='图表1' base_data={this.state.base_data1}></Linedata>
@@ -70,7 +66,6 @@ class aa extends Component {
           <Piedata chartid={this.state.chartid2} title='图表3' base_data={this.state.base_data3}></Piedata>
           <Linelengdata chartid={this.state.chartid3} title='图表4' base_data={this.state.base_data4}></Linelengdata>
           <Paipairebar chartid={this.state.chartid4} title='图表5' base_data={this.state.base_data4}></Paipairebar>
->>>>>>> xiongcui
         </div>
       );
     }

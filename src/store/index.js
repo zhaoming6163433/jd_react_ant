@@ -1,13 +1,11 @@
 import { init } from '@rematch/core'
 import { count } from '@/models/index'
 import { home } from '@/models/home'
- 
 const store = init({
   models:{
     home,
     count
   }
-  
 })
 export default store;
                                                   // state = { count: 0 }
