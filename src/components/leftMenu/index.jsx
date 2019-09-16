@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Button } from 'antd';
+import { Link } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
@@ -28,11 +29,13 @@ class leftMenu extends Component {
         >
           <Menu.Item key="1">
             <Icon type="pie-chart" />
-            <span>Option 1</span>
+            <span>aa</span>
+            <Link to="/aa"></Link>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="desktop" />
-            <span>Option 2</span>
+            <span>home</span>
+            <Link to="/home"></Link>
           </Menu.Item>
           <Menu.Item key="3">
             <Icon type="inbox" />

@@ -1,4 +1,5 @@
-import aa from '../page/aa'
+import aa from '@/page/aa'
+import home from '@/page/home'
 const routes = [
   {
     exact: true,
@@ -7,8 +8,13 @@ const routes = [
   },
   {
     exact: true,
-    path: '/a',
+    path: '/aa',
     component: aa
+  },
+  {
+    exact: true,
+    path: '/home',
+    component: home
   }
 ];
 

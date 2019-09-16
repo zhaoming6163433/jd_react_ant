@@ -19,7 +19,8 @@ module.exports = override(
         ["assets"]: path.resolve(__dirname, "src/assets"),
         ["mock"]: path.resolve(__dirname, "src/mock"), 
         ["services"]: path.resolve(__dirname, "src/services"),        
-        ["components"]: path.resolve(__dirname, "src/components")   
+        ["components"]: path.resolve(__dirname, "src/components"),
+        ["@"]: path.resolve(__dirname, "src")
     }),
     (config) => {
         config.module.rules[2].oneOf[5].use.push({
