@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './index.scss';
-import echarts from 'echarts';
 import $ from 'n-zepto';
 class Paipairebar extends Component {
     constructor(props) {
@@ -24,7 +23,7 @@ class Paipairebar extends Component {
     }
     componentDidMount() {
         // 基于准备好的dom，初始化echarts实例
-        this.myChart = echarts.init(document.getElementById(this.props.chartid));
+        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize', () => {
             this.myChart.resize();
         })

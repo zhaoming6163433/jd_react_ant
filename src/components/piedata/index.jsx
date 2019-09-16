@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './index.scss';
-import echarts from 'echarts';
 class Piedata extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +15,7 @@ class Piedata extends Component {
     }
     componentDidMount(){
         // 基于准备好的dom，初始化echarts实例
-        this.myChart = echarts.init(document.getElementById(this.props.chartid));
+        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize',() =>{
             this.myChart.resize();
         })

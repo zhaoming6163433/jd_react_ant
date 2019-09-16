@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './index.scss';
-import echarts from 'echarts';
 import util from "utils/util.js";
 class Linelengdata extends Component {
     constructor(props) {
@@ -16,7 +15,7 @@ class Linelengdata extends Component {
         console.log('---------------')
     }
     componentDidMount() {
-        this.myChart = echarts.init(document.getElementById(this.props.chartid));
+        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize', () => {
             this.myChart.resize();
         })
