@@ -1,0 +1,13 @@
+.piedata {
+    height: 392px;
+    position: relative;
+    background:#fff;
+    .mypie{
+        width:100%;
+        position: relative;
+        padding:16px 10px;
+        height: 392px;
+        box-sizing: border-box;
+        border-top: 3px solid #f1f1f1;
+    }
+}

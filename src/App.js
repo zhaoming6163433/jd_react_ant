@@ -6,6 +6,7 @@ import LeftMenu from '../src/components/leftMenu';
 import {connect} from 'react-redux';
 import { dispatch, getState } from '@rematch/core';
 import { post_user_info } from './services/api';
+
 import './App.scss';
 
 const { Header, Sider, Content } = Layout;
@@ -20,7 +21,9 @@ const mapDispatch = (dispatch) => ({
 
 class App extends Component {
     componentDidMount () {
-      this.base_getids('')
+      this.base_getids('');
+      // console.log(getState)
+
     }
     handleClick = () => {
       this.props.countDispatch.increment(10)
