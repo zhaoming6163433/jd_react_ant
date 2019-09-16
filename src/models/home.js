@@ -1,4 +1,4 @@
-import { post_base_getids } from '@/services/api';
+import { post_user_info } from '@/services/api';
 
 export const home = {
   state: {
@@ -8,11 +8,11 @@ export const home = {
         }, {
           title: 'ID',
           dataIndex: 'id',
-        }],
-    data: [{
+    }],
+    userinfo: [{
         "name": "赵明",
         "id": "122"
-      }]
+    }]
   },
 
   subscriptions: {
@@ -20,10 +20,10 @@ export const home = {
   },
 
   effects: {
-    async base_getids(params){
+    async post_user_info(params){
         console.log(params)
         try{
-            let res = await post_base_getids("");
+            let res = await post_user_info("");
             this.ADD_USER(res);
         }catch(e){
 
@@ -34,7 +34,7 @@ export const home = {
   reducers: {
     ADD_USER(state, data) {
       return { ...state,
-        JSON_DATA: data };
+        userinfo: data };
     }
   }
 };

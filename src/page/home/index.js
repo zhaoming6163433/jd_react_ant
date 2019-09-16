@@ -6,7 +6,7 @@ const mapState = state => ({
     home: state.home
 })
 const mapDispatch = (dispatch) => ({
-    add_user: dispatch.home
+    homeDispatch: dispatch.home
 })
 
 class Home extends Component {
@@ -14,21 +14,17 @@ class Home extends Component {
         console.log(this.props.home)
     };
     changeData = () => {
-        const { dispatch } = this.props;
-        dispatch({
-            type: 'home/base_getids',
-            params: {'home':'首页'}
-        });
+        this.props.homeDispatch.post_user_info({'home':'首页'});
     };
     render() {
-        // console.log(this.props.home)
-        // const { columns, data } = this.props.home;
+        console.log(this.props.home)
+        const { columns, userinfo } = this.props.home;
         return (
             <div>
-                {/* <Button type="primary" onClick={this.changeData}>修改数据</Button>
+                <Button type="primary" onClick={this.changeData}>修改数据</Button>
                 <div>
-                    <Table rowKey={(record, index) => `complete${record.id}${index}`} columns={columns} dataSource={data}/>
-                </div> */}
+                    <Table rowKey={(record, index) => `complete${record.id}${index}`} columns={columns} dataSource={userinfo}/>
+                </div>
             </div>
         );
     }

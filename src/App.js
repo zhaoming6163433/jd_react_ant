@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router-dom';
 import { Layout } from 'antd';
-import Routes from './routes/index';
+import Routes from '@/routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import {connect} from 'react-redux';
 import { dispatch, getState } from '@rematch/core';
-import { post_base_getids } from './services/api';
+import { post_user_info } from './services/api';
 import './App.scss';
 
 const { Header, Sider, Content } = Layout;
@@ -28,10 +28,10 @@ class App extends Component {
     handleClick2 = () => {
       this.props.countDispatch.incrementAsync(20)
     };
-    //创建新建id
+    //获取用户信息
     async base_getids(){
       try{
-          let res = await post_base_getids("");
+          let res = await post_user_info("");
           console.log(res)
       }catch(e){
 
@@ -57,7 +57,7 @@ class App extends Component {
                     天天宇通
                   </Header>
                   <Content style={{ background: '#fff', padding: 15, marginLeft: 10, marginRight: 10, minHeight: 415, marginTop: 30 }}>
-                    3454页565
+                    3454页5652
                     <Switch>{routers}</Switch>
                     <div>
                       The count is {this.props.count}

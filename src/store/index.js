@@ -7,7 +7,6 @@ const store = init({
     home,
     count
   }
-  
 })
  
 export default store

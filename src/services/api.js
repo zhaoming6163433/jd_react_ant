@@ -2,6 +2,6 @@ import appConfigs from '../configs'
 import Request from './request'
 
 /**
- * 创建项目前生成id
+ * mock获取用户信息
  */
-export const post_base_getids = (params) => Request(appConfigs.urlWebHttp + "/base/getids", params, 'GET');
+export const post_user_info = (params) => Request(appConfigs.urlWebHttp + "/data", params, 'GET');

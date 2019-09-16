@@ -17,13 +17,13 @@ let pagename = {
 console.log(process.env.NODE_ENV)
 switch (process.env.NODE_ENV) {
     case 'development':
-        urlWebHttp = 'http://172.25.45.68:8082/assets-manage';
+        urlWebHttp = 'http://localhost:3001';
         break;
     case 'production':
         urlWebHttp = 'http://172.25.45.68:8082/assets-manage';
         break;
     default://默认开发
-        urlWebHttp = 'http://172.25.45.69:8080/assets-manage';
+        urlWebHttp = 'http://localhost:3001';
 }
 
 
