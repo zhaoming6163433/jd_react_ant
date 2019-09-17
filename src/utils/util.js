@@ -3,6 +3,11 @@ import $ from 'n-zepto'
 import appConfigs from '../configs.js'
 import export_json_to_excel from 'assets/js/Export2Excel.js'
 import moment from 'moment';
+import { message } from 'antd';
+// 最大显示数, 超过限制时，最早的消息会被自动关闭
+message.config({
+    maxCount: 1
+});
 
 // let getevent = () => {
 //     var Event = new Vue();
@@ -339,24 +344,15 @@ const utils = {
     },
     //登录错误提示
     errortip(info) {
-        // vueEvent.$message.closeAll();
-        // vueEvent.$message.error(info);
+        message.error(info);
     },
     //成功提示
     successtip(info) {
-        // vueEvent.$message.closeAll();
-        // vueEvent.$message({
-        //     message: info,
-        //     type: 'success'
-        // });
+        message.success(info);
     },
     //警告提示
     warningtip(info) {
-        // vueEvent.$message.closeAll();
-        // vueEvent.$message({
-        //     message: info,
-        //     type: 'warning'
-        // });
+        message.warning(info);
     },
     //身份证截取出生日期
     getBirthdayFromIdCard(idCard) {
@@ -413,14 +409,14 @@ const utils = {
         return blob;
     },
     //下载excel表格 tHeader头部中文名 filterVal头部英文名 datalist json数据
-    // exportToExcel(tablename="列表excel", tHeader=[], filterVal=[], datalist=[]) {
-    //     //excel数据导出
-    //     require.ensure([], () => {
-    //         const list = datalist;
-    //         const data = this.formatJson(filterVal, list);
-    //         export_json_to_excel(tHeader, data, tablename);
-    //     })
-    // },
+    exportToExcel(tablename="列表excel", tHeader=[], filterVal=[], datalist=[]) {
+        //excel数据导出
+        import('assets/js/Export2Excel.js').then(mod => {
+            const list = datalist;
+            const data = this.formatJson(filterVal, list);
+            export_json_to_excel(tHeader, data, tablename);
+        })
+    },
     formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => v[j]))
     },

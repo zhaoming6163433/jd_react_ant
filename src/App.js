@@ -4,7 +4,6 @@ import { Layout } from 'antd';
 import Routes from '@/routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import {connect} from 'react-redux';
-import { dispatch, getState } from '@rematch/core';
 import { post_user_info } from './services/api';
 
 import './App.scss';
