@@ -11,7 +11,6 @@ class leftMenu extends Component {
     };
     componentDidMount () {
       var hash = window.location.hash.split('/')[1] ? window.location.hash.split('/')[1] : '';
-      console.log(window.location.hash)
       this.setState({
         openKeys: [hash],
         selectedKeys: [hash]
