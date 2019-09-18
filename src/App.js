@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import { post_user_info } from './services/api';
 
 import './App.scss';
-
 const { Header, Sider, Content } = Layout;
 
 const mapState = state => ({
