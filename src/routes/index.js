@@ -1,15 +1,16 @@
-import aa from '@/page/aa'
-import home from '@/page/home'
+import asyncComponent from './AsyncComponent';
+const example = asyncComponent(() => import('@/page/example'));
+const home = asyncComponent(() => import('@/page/home'));
 const routes = [
   {
     exact: true,
     path: '/',
-    component: aa
+    component: example
   },
   {
     exact: true,
-    path: '/aa',
-    component: aa
+    path: '/example',
+    component: example
   },
   {
     exact: true,

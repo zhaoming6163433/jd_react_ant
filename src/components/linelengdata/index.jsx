@@ -7,45 +7,60 @@ class Linelengdata extends Component {
         this.state = {
             title: props.title,
             myChart: {},
-            base_data: []
+            legendarr:[],
+            seriesarr:[],
+            datearr:[]
         };
     }
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        console.log('---------------')
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.base_data) == JSON.stringify(nextProps.base_data)) {
+            // 数据相等，阻止更新
+            return false
+        }
+        return true
+    }
+    componentDidUpdate (prevProps, prevState) {
+        // 如果数据发生变化，则更新图表
+        if(JSON.stringify(this.props.base_data) != JSON.stringify(prevProps.base_data)) {
+            console.log('------------------linelengdata')
+            this.showchar();
+        }
     }
     componentDidMount() {
-        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
+        this.state.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize', () => {
-            this.myChart.resize();
+            this.state.myChart.resize();
         })
         this.showchar();
     }
     showchar() {
-        let arr = Object.keys(this.props.base_data.series);
-        if (this.props.base_data.series && this.props.base_data.xAxis[0].length && arr.length != 0) {
+        let oData = this.props.base_data;
+        let arr = Object.keys(oData.series);
+        if (oData.series && oData.xAxis[0].length && arr.length != 0) {
             // 有数据
-            let _baseeries = this.props.base_data.series;
-            this.legendarr = [];
-            this.seriesarr = [];
+            let _baseeries = oData.series;
+            this.state.legendarr = [];
+            this.state.seriesarr = [];
+            this.state.datearr = [];
+            this.state.datearr = oData.xAxis[0];
             for (var key in _baseeries) {
-                this.legendarr.push(key)
+                this.state.legendarr.push(key)
                 let obj = {
                     name: key,
                     type: 'line',
                     stack: this.props.chartid == 'm2' || this.props.chartid == 'm1' ? '总量' : '',
                     data: _baseeries[key]
                 }
-                this.seriesarr.push(obj);
+                this.state.seriesarr.push(obj);
             }
         } else {
-            this.legendarr = [];
-            this.seriesarr = [];
+            this.state.legendarr = [];
+            this.state.seriesarr = [];
+            this.state.datearr = [];
             // 没有数据,获取开始日期后七天时间
             let oDate = util.getSevenDate(new Date('2019-9-01'), '2019-9-16');
-            this.props.base_data.xAxis[0].length = 0;
             oDate.map((item, index) => {
-                this.props.base_data.xAxis[0].push(item)
+                this.state.datearr.push(item)
             })
             let obj = {
                 name: "",
@@ -53,7 +68,7 @@ class Linelengdata extends Component {
                 stack: this.props.chartid == 'm2' || this.props.chartid == 'm1' ? '总量' : '',
                 data: [0, 0, 0, 0, 0, 0, 0]
             }
-            this.seriesarr.push(obj);
+            this.state.seriesarr.push(obj);
         }
 
         let option = {
@@ -97,7 +112,7 @@ class Linelengdata extends Component {
             },
             legend: {
                 // data:['全部项目','拍拍贷2019','宜人贷2019','宜车贷2019'],
-                data: this.legendarr,
+                data: this.state.legendarr,
                 padding: [5, 80, 5, 80]
             },
             grid: {
@@ -117,7 +132,7 @@ class Linelengdata extends Component {
                 type: 'category',
                 boundaryGap: false,
                 // data: ['2019/7/1','2019/7/2','2019/7/3','2019/7/4','2019/7/5','2019/7/6','2019/7/7']
-                data: this.props.base_data.xAxis[0]
+                data: this.state.datearr
             },
             yAxis: {
                 type: 'value',
@@ -138,10 +153,10 @@ class Linelengdata extends Component {
                 },
                 show: true
             },
-            series: this.seriesarr
+            series: this.state.seriesarr
         };
-        this.myChart.clear();
-        this.myChart.setOption(option);
+        this.state.myChart.clear();
+        this.state.myChart.setOption(option);
     }
     render() {
         return (
@@ -151,5 +166,4 @@ class Linelengdata extends Component {
         );
     }
 }
-
 export default Linelengdata;

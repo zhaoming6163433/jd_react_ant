@@ -11,6 +11,12 @@ class leftMenu extends Component {
     };
     componentDidMount () {
       var hash = window.location.hash.split('/')[1] ? window.location.hash.split('/')[1] : '';
+      if (hash) {
+        hash = hash;
+      } else {
+        // 根路由，默认给第一个高亮显示
+        hash = 'example';
+      }
       this.setState({
         openKeys: [hash],
         selectedKeys: [hash]
@@ -55,10 +61,10 @@ class leftMenu extends Component {
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="aa">
+          <Menu.Item key="example">
             <Icon type="pie-chart" />
-            <span>aa</span>
-            <Link to="/aa"></Link>
+            <span>example</span>
+            <Link to="/example"></Link>
           </Menu.Item>
           <Menu.Item key="home">
             <Icon type="desktop" />

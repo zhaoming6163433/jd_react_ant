@@ -6,31 +6,34 @@ class Piedata extends Component {
         this.state = {
             title:props.title,
             myChart: {},
-            base_data:[]
+            seriesarr:{}
         };
     }
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        console.log('---------------')
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.base_data) == JSON.stringify(nextProps.base_data)) {
+            return false
+        }
+        return true
+    }
+    componentDidUpdate (prevProps, prevState) {
+        // 如果数据发生变化，则更新图表
+        if(JSON.stringify(this.props.base_data) != JSON.stringify(prevProps.base_data)) {
+            console.log('------------------piedata')
+            this.showchar();
+        }
     }
     componentDidMount(){
         // 基于准备好的dom，初始化echarts实例
-        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
+        this.state.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize',() =>{
-            this.myChart.resize();
+            this.state.myChart.resize();
         })
         this.showchar();
     }
     showchar() {
-        if (this.props.base_data.series && this.props.base_data.xAxis[0].length) {
+        if (this.props.base_data.length) {
             // 有数据
-            let _datearr = this.props.base_data.xAxis&&this.props.base_data.xAxis[0];
-            let _baseeries = this.props.base_data.series;
-            // console.log(_baseeries)
-
-            for(var key in _baseeries){
-                this.props.base_data.series = _baseeries[key]
-            }
+            this.state.seriesarr = this.props.base_data;
         }
         let option = {
             title : {
@@ -49,7 +52,7 @@ class Piedata extends Component {
                 orient: 'vertical',
                 left: 'right',
                 // data: ['拍拍贷2019','宜人贷2019','宜农贷2019','宜车贷2019']
-                data: this.props.base_data
+                data: this.state.seriesarr
             },
             series : [
                 {
@@ -57,7 +60,7 @@ class Piedata extends Component {
                     type: 'pie',
                     radius : '50%',
                     center: ['50%', '60%'],
-                    data: this.props.base_data,
+                    data: this.state.seriesarr,
                     // data:[
                     //     {value:335, name:'拍拍贷2019'},
                     //     {value:310, name:'宜人贷2019'},
@@ -74,8 +77,8 @@ class Piedata extends Component {
                 }
             ]
         };
-        this.myChart.clear();
-        this.myChart.setOption(option);
+        this.state.myChart.clear();
+        this.state.myChart.setOption(option);
     }
   render() {
     return (
@@ -85,5 +88,4 @@ class Piedata extends Component {
     );
   }
 }
-
 export default Piedata;

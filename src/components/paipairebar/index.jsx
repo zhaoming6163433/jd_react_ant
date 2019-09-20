@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 import $ from 'n-zepto';
-class Paipairebar extends React.Component {
+class Paipairebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,15 +14,25 @@ class Paipairebar extends React.Component {
             legendarr:[]
         };
     }
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        console.log('---------------')
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.base_data) == JSON.stringify(nextProps.base_data)) {
+            // 数据相等，阻止更新
+            return false
+        }
+        return true
+    }
+    componentDidUpdate (prevProps, prevState) {
+        // 如果数据发生变化，则更新图表
+        if(JSON.stringify(this.props.base_data) != JSON.stringify(prevProps.base_data)) {
+            console.log('------------------paipairebar')
+            this.showchar();
+        }
     }
     componentDidMount() {
         // 基于准备好的dom，初始化echarts实例
-        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
+        this.state.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize', () => {
-            this.myChart.resize();
+            this.state.myChart.resize();
         })
         this.handleres();
     }
@@ -125,8 +135,8 @@ class Paipairebar extends React.Component {
             ],
             series: this.state.seriesarr.reverse()
         };
-        this.myChart.clear();
-        this.myChart.setOption(option);
+        this.state.myChart.clear();
+        this.state.myChart.setOption(option);
     }
     render() {
         return (
