@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
 import util from "utils/util.js";
-import { Spin } from 'antd';
 class Linedata extends Component {
     constructor(props) {
         super(props);
