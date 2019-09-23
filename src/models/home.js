@@ -37,17 +37,22 @@ export const home = {
 
   },
 
-  effects: {
+  effects: (dispatch) => ({
     async post_user_info(params){
         console.log(params)
+        // 开启Loading
+        dispatch.Loading.isLoading(true);
         try{
             let res = await post_user_info("");
             this.ADD_USER(res);
+            // 关闭Loading
+            dispatch.Loading.isLoading(false);
         }catch(e){
-
+          // 关闭Loading
+          dispatch.Loading.isLoading(false);
         }
     }
-  },
+  }),
 
   reducers: {
     ADD_USER(state, data) {

@@ -24,6 +24,7 @@
         "no-eval":0,
         "no-useless-concat":0,
         "no-undef":0,
-        "react/jsx-no-undef":0
+        "react/jsx-no-undef":0,
+        "no-self-assign":0
     }
   }

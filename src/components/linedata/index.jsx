@@ -1,51 +1,65 @@
 import React, { Component } from 'react';
 import './index.scss';
 import util from "utils/util.js";
+import { Spin } from 'antd';
 class Linedata extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title:props.title,
             myChart: {},
-            base_data:[]
+            serieskey:'',
+            seriesarr:[],
+            datearr:[]
         };
     }
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        console.log('---------------')
-        // if (store.getState().Contract.SetCodeOff) {
-        //   return false;
-        // } else {
-        //   this.setState({
-        //     codeOff: false
-        //   });
-        // }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.base_data) == JSON.stringify(nextProps.base_data)) {
+            // 数据相等，阻止更新
+            return false
+        }
+        return true
+    }
+    componentDidUpdate (prevProps, prevState) {
+        // 如果数据发生变化，则更新图表
+        if(JSON.stringify(this.props.base_data) != JSON.stringify(prevProps.base_data)) {
+            console.log('------------------linedata')
+            this.showchar();
+        }
     }
     componentDidMount(){
         // 基于准备好的dom，初始化echarts实例
-        this.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
+        this.state.myChart = window.$echarts.init(document.getElementById(this.props.chartid));
         window.addEventListener('resize',() =>{
-            this.myChart.resize();
+            this.state.myChart.resize();
         })
         this.showchar();
     }
+    toggle = value => {
+        this.setState({ loading: value });
+    };
     showchar() {
-        let arr = Object.keys(this.props.base_data.series);
-        if (this.props.base_data.series && this.props.base_data.xAxis[0].length && arr.length != 0) {
+        let oData = this.props.base_data;
+        let arr = Object.keys(oData.series);
+        if (oData.series && oData.xAxis[0].length && arr.length != 0) {
             // 有数据
-            let _datearr = this.props.base_data.xAxis&&this.props.base_data.xAxis[0];
-            let _baseeries = this.props.base_data.series;
+            this.state.datearr = [];
+            this.state.seriesarr = [];
+            this.state.datearr = oData.xAxis&&oData.xAxis[0];
+            let _baseeries = oData.series;
             for(var key in _baseeries){
-                this.props.base_data.series = _baseeries[key]
+                this.state.serieskey = key;
+                this.state.seriesarr = _baseeries[key];
             }
         } else {
             // 没有数据,获取开始日期后七天时间
             let oDate = util.getSevenDate(new Date('2019-9-01'),'2019-9-16');
-            this.props.base_data.xAxis[0].length = 0;
+            this.state.datearr = [];
+            this.state.seriesarr = [];
             oDate.map((item,index)=>{
-                this.props.base_data.xAxis[0].push(item)
+                this.state.datearr.push(item)
             })
-            this.props.base_data.series = [0,0,0,0,0,0,0];
+            this.state.seriesarr = [0,0,0,0,0,0,0];
         }
         let option = {
             title: {
@@ -79,7 +93,7 @@ class Linedata extends Component {
                 {
                     type: 'category',
                     // data :  ['2019/07/01','2019/07/02','2019/07/03','2019/07/04','2019/07/05','2019/07/06','2019/07/07'],
-                    data: this.props.base_data.xAxis[0],
+                    data: this.state.datearr,
                     axisTick: {
                         alignWithLabel: true
                     }
@@ -93,10 +107,10 @@ class Linedata extends Component {
             },
             series: [
                 {
-                    name: this.serieskey,
+                    name: this.state.serieskey,
                     type: 'line',
                     // data:[11, 11, 15, 13, 12, 13, 10],
-                    data: this.props.base_data.series,
+                    data: this.state.seriesarr,
                     markPoint: {
                         data: [
                             {type: 'max', name: '最大值'},
@@ -111,8 +125,8 @@ class Linedata extends Component {
                 }
             ]
         };
-        this.myChart.clear();
-        this.myChart.setOption(option);
+        this.state.myChart.clear();
+        this.state.myChart.setOption(option);
     }
   render() {
     return (
@@ -122,5 +136,4 @@ class Linedata extends Component {
     );
   }
 }
-
 export default Linedata;

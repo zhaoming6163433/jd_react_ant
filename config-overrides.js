@@ -1,7 +1,8 @@
 const { override, fixBabelImports, addLessLoader, addWebpackAlias,useEslintRc } = require('customize-cra');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const productionGzipExtensions = ['js', 'css']
-const path = require('path')
+const webpack = require('webpack');
+const productionGzipExtensions = ['js', 'css'];
+const path = require('path');
 module.exports = override(
     //按需加载antd的组件
     fixBabelImports('import', {
@@ -38,7 +39,13 @@ module.exports = override(
             //生产去掉console.log
             config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
             // 关掉 sourceMap
-            config.devtool = false;
+            config.devtool = false;   
+            config.plugins.push(
+                new webpack.DllReferencePlugin({
+                  context: process.cwd(),
+                  manifest: require("./public/dll/react-manifest.json")
+                })
+            );
             // 生成gzip
             config.plugins.push(
                 new CompressionWebpackPlugin({
