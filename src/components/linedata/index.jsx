@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 import util from "utils/util.js";
+import { Spin } from 'antd';
 class Linedata extends Component {
     constructor(props) {
         super(props);
@@ -33,8 +34,10 @@ class Linedata extends Component {
             this.state.myChart.resize();
         })
         this.showchar();
-
     }
+    toggle = value => {
+        this.setState({ loading: value });
+    };
     showchar() {
         let oData = this.props.base_data;
         let arr = Object.keys(oData.series);

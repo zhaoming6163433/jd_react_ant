@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router-dom';
 import { Layout } from 'antd';
 import Routes from '@/routes/index';
-import LeftMenu from '../src/components/leftMenu';
+import LeftMenu from '@/components/leftMenu';
+import Loading from '@/components/loading';
 import {connect} from 'react-redux';
 import { post_user_info } from './services/api';
 
@@ -65,6 +66,7 @@ class App extends Component {
                       <button onClick={this.handleClick}>increment</button>
                       <button onClick={this.handleClick2}>incrementAsync</button>
                     </div>
+                    <Loading/>
                   </Content>
                 </Layout>
               </Layout>

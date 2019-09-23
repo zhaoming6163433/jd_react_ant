@@ -82,7 +82,7 @@
   },
   "scripts": {
     "start": "concurrently \"react-app-rewired start\" \"json-server --watch ./mock/db.js -p 3001\"",
-    "build": "react-app-rewired build",
+    "build": "concurrently \"webpack --config webpack.dll.js --mode=production\" \"react-app-rewired build\"",
     "test": "react-app-rewired test",
     "dll": "webpack --config webpack.dll.js --mode=production"
   },

@@ -57,9 +57,10 @@ export const echartData = {
   },
   subscriptions: {
   },
-
-  effects: {
+  effects: (dispatch) => ({
     async post_base_data1(params){
+        // 开启Loading
+        dispatch.Loading.isLoading(true);
         try{
             // let res = await post_user_info("");
             let data = {
@@ -71,11 +72,16 @@ export const echartData = {
                 ]
             }
             this.CHANGE_BASE_DATA1(data);
+            // 关闭Loading
+            dispatch.Loading.isLoading(false);
         }catch(e){
-
+            // 关闭Loading
+            dispatch.Loading.isLoading(false);
         }
     },
     async post_base_data3(params){
+        // 开启Loading
+        dispatch.Loading.isLoading(true);
         try{
             // let res = await post_user_info("");
             let data3 = [
@@ -94,8 +100,11 @@ export const echartData = {
                 }
             ]
             this.CHANGE_BASE_DATA3(data3);
+            // 关闭Loading
+            dispatch.Loading.isLoading(false);
         }catch(e){
-
+            // 关闭Loading
+            dispatch.Loading.isLoading(false);
         }
     },
     async post_base_data4(params){
@@ -106,8 +115,7 @@ export const echartData = {
 
         }
     }
-  },
-
+  }),
   reducers: {
     CHANGE_BASE_DATA1(state, data) {
         return { ...state,
