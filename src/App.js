@@ -5,6 +5,7 @@ import Routes from '@/routes/index';
 import LeftMenu from '../src/components/leftMenu';
 import {connect} from 'react-redux';
 import { post_user_info } from './services/api';
+import emitter from "utils/ev"
 
 import './App.scss';
 const { Header, Sider, Content } = Layout;
@@ -24,7 +25,8 @@ class App extends Component {
 
     }
     handleClick = () => {
-      this.props.countDispatch.increment(10)
+        emitter.emit("callMe","Hello")
+        this.props.countDispatch.increment(10)
     };
     handleClick2 = () => {
       this.props.countDispatch.incrementAsync(20)

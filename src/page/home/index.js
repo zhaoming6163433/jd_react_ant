@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Table } from 'antd';
 import {connect} from 'react-redux';
 import util from "utils/util.js";
+import Effectcount from 'components/effectcount/index';
 
 const mapState = state => ({
     home: state.home
@@ -31,6 +32,7 @@ class Home extends Component {
             <div>
                 <Button type="primary" onClick={this.changeData}>修改数据</Button>
                 <Button type="primary" onClick={this.download}>下载</Button>
+                <Effectcount />
                 <div>
                     <Table rowKey={(record, index) => `complete${record.id}${index}`} columns={columns} dataSource={userinfo}/>
                 </div>
