@@ -12,10 +12,10 @@ import WebWorker from "react-webworker"
 const myWorker = new Worker("./worker.js")
 const myWorker1 = new Worker("./worker1.js")
 const mapState = state => ({
-  echartData: state.echartData
+  exampleData: state.exampleData
 })
 const mapDispatch = (dispatch) => ({
-  echartDispatch: dispatch.echartData
+  exampleDispatch: dispatch.exampleData
 })
 class example extends React.Component {
   constructor(props) {
@@ -34,34 +34,16 @@ class example extends React.Component {
     };
   }
   changeState = () => {
-    this.props.echartDispatch.post_base_data1({ 'home': '首页' });
-    this.props.echartDispatch.post_base_data3({ 'home': '首页' });
+    this.props.exampleDispatch.post_base_data1({ 'home': '首页' });
+    this.props.exampleDispatch.post_base_data3({ 'home': '首页' });
   }
   componentDidMount() {
-    myWorker.postMessage(this.props.echartData.base_data5);
-    myWorker1.postMessage(this.props.echartData.base_data5);
+    // 设置图表5、图表6初始化数据
+    myWorker.postMessage(this.props.exampleData.base_data5);
+    myWorker1.postMessage(this.props.exampleData.base_data5);
   }
+  // 弹出框1 确定按钮-提交数据
   handleOk = e => {
-    console.log(e);
-    this.handleSubmit(e)
-  };
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      demoVisible: false,
-    });
-  };
-  handleOk2 = e => {
-    console.log(e);
-    this.handleSubmit2(e)
-  };
-  handleCancel2 = e => {
-    console.log(e);
-    this.setState({
-      demoVisible2: false,
-    });
-  };
-  handleSubmit = e => {
     e.preventDefault();
     let oFrom = this.formRef.props.form;
     oFrom.validateFields((err, values) => {
@@ -71,30 +53,50 @@ class example extends React.Component {
         this.setState({
           demoVisible: false,
         });
+        // 发送请求
+        this.props.exampleDispatch.post_base_data6({ 'home6': '首页' });
       } else {
 				console.log('Received values of form: ', values);
 			}
     });
   };
-  handleSubmit2 = e => {
+  // 弹出框1 取消按钮
+  handleCancel = e => {
+    this.setState({
+      demoVisible: false,
+    });
+  };
+  // 弹出框2 确定按钮-提交数据
+  handleOk2 = e => {
     e.preventDefault();
     let oFrom = this.formRef2.props.form;
     oFrom.validateFields((err, values) => {
       if (!err) {
         console.log(values);
+        console.log('父组件=======')
         this.setState({
           demoVisible2: false,
         });
+        // 发送请求
+        this.props.exampleDispatch.post_base_data6({ 'home6': '首页' });
       } else {
 				console.log('Received values of form: ', values);
 			}
     });
-  }
+  };
+  // 弹出框2 取消按钮
+  handleCancel2 = e => {;
+    this.setState({
+      demoVisible2: false,
+    });
+  };
+  // 弹出框1 显示
   showDialog1 = () =>{
     this.setState({
       demoVisible: true,
     });
   }
+  // 弹出框2 显示
   showDialog2 = () =>{
     this.setState({
       demoVisible2: true,
@@ -106,10 +108,10 @@ class example extends React.Component {
         <Button type="primary" onClick={this.changeState}>修改数据</Button>
         <Button type="primary" onClick={this.showDialog1} style={{marginLeft:'30px'}}>弹出框1</Button>
         <Button type="primary" onClick={this.showDialog2} style={{marginLeft:'30px'}}>弹出框2</Button>
-        <Linedata chartid={this.state.chartid} title='图表1' base_data={this.props.echartData.base_data1}></Linedata>
-        <Linedata chartid={this.state.chartid1} title='图表2' base_data={this.props.echartData.base_data2}></Linedata>
-        <Piedata chartid={this.state.chartid2} title='图表3' base_data={this.props.echartData.base_data3}></Piedata>
-        <Linelengdata chartid={this.state.chartid3} title='图表4' base_data={this.props.echartData.base_data4}></Linelengdata>
+        <Linedata chartid={this.state.chartid} title='图表1' base_data={this.props.exampleData.base_data1}></Linedata>
+        <Linedata chartid={this.state.chartid1} title='图表2' base_data={this.props.exampleData.base_data2}></Linedata>
+        <Piedata chartid={this.state.chartid2} title='图表3' base_data={this.props.exampleData.base_data3}></Piedata>
+        <Linelengdata chartid={this.state.chartid3} title='图表4' base_data={this.props.exampleData.base_data4}></Linelengdata>
         <WebWorker worker={myWorker}>
           {({ data, error, postMessage }) => {
             if (error) return `Something went wrong: ${error.message}`
@@ -144,7 +146,9 @@ class example extends React.Component {
           onCancel={this.handleCancel}
         >
           <div className="content">
-            <div>8839399</div>
+            <div>啦啦啦啦啦啦啦</div>
+            <div>啦啦啦啦啦啦啦</div>
+            {/* 经过 Form.create 之后如果要拿到 ref，可以使用 rc-form 提供的 wrappedComponentRef */}
             <DemoForm wrappedComponentRef={(form) => this.formRef = form}></DemoForm>
           </div>
         </AllDialog>
@@ -158,6 +162,7 @@ class example extends React.Component {
           onCancel={this.handleCancel2}
         >
           <div className="content">
+            {/* 经过 Form.create 之后如果要拿到 ref，可以使用 rc-form 提供的 wrappedComponentRef */}
             <DemoForm2 wrappedComponentRef={(form) => this.formRef2 = form}></DemoForm2>
           </div>
         </AllDialog>

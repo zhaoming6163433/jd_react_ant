@@ -18,15 +18,15 @@ class AllDialog extends Component {
   }
   render() {
     const {
-      title,
-      width,
-      children,
-      className,
-      okText,
-      cancelText,
-      onOk,
-      onCancel,
-      maskClosable
+      title,// title
+      width,// 宽度
+      children,// 弹出框中间内容
+      className,// class
+      okText,// 确认按钮文字
+      cancelText,// 取消按钮文字
+      onOk,// 点击确定回调
+      onCancel,// 点击取消回调
+      maskClosable // 点击蒙层是否允许关闭
     } = this.props;
     return (
       <Modal
