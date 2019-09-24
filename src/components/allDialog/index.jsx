@@ -48,7 +48,7 @@ class AllDialog extends Component {
 }
 AllDialog.propTypes = {
   visible: PropTypes.bool.isRequired,
-  widh: PropTypes.string,
+  width: PropTypes.string,
   title: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
   className: PropTypes.string,
