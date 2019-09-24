@@ -46,8 +46,8 @@ class demoFrom2 extends Component {
                             rules: [{ required: true, message: 'Please select your country!' }],
                         })(
                             <Select placeholder="Please select a country">
-                                <Option value="china">China</Option>
-                                <Option value="usa">U.S.A</Option>
+                                <Select.Option value="china">China</Select.Option>
+                                <Select.Option value="usa">U.S.A</Select.Option>
                             </Select>,
                         )}
                     </Form.Item>
